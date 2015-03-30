@@ -1,0 +1,42 @@
+'  Author:  Nick Hollis     2013   
+'  This is a code snippet to demonstrate Visual Basic executing a SQL 
+'  query inside a form and displaying to the user.
+'
+'  ###  Names of servers, databases, connection strings, variables, 
+'  		tables, columns, etc. have been changed but the concepts are 
+'		the same.  ###
+Private Sub Form_Load(ByVal sender As object, ByVal args As EventArgs) Handles Form.Load        
+		screenSetup
+        LoadQuery()
+        
+	End Sub
+    
+    Private Sub LoadQuery()
+        '// ** Place Event Handling Code Here **
+        Dim connection As New SqlConnection("server=Server_Name;database=Database_Name;uid=userid;password=password")  'Setup connection
+        Dim sqlAdpt as New SqlDataAdapter
+        Dim ds as New DataSet
+        Dim command As SqlCommand = New SqlCommand()
+        
+        Try
+           command.Connection = connection 'connet to database
+           command.CommandTimeout = 180
+           command.CommandText = "select a.Column1, a.Column2, a.Column3, b.ColumnA as 'A', b.ColumnB as 'B', a.Column4, a.Column5, c.FirstColumn as 'First' from Table1 a inner join Table2 b on a.Column1=b.ColumnA inner join Table3 c on a.Column3=c.SecondColumn where a.Column6=0 and c.ThirdColumn in ('Code1','Code2','Code3','Code4') and b.ColumnB>0 and a.Column4='Parameter' order by a.Column1"
+           'Load query into command text                     
+           command.CommandType = CommandType.Text
+           connection.Open()
+           sqlAdpt.SelectCommand = command
+           sqlAdpt.Fill(ds) 'Execute query and fill data set
+            
+           ugdDataGrid.DataSource=ds  'display data set to user in data grid
+            
+        Catch ex as Exception  'error handling
+            MessageBox.Show(ex.Message)
+        Finally 
+            sqlAdpt.Dispose() 'clean up
+        End Try
+    End Sub       
+    
+    Private Sub btnClearButtonClick(ByVal sender As Object, ByVal args As Infragistics.Win.UltraWinToolbars.ToolClickEventArgs)
+        resetScreen
+    End Sub

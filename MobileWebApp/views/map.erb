@@ -1,0 +1,1147 @@
+<div class="row">
+  <div class="col-md-6">
+    <div id="map" style="height: 300px;">
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div id="legend">
+      <ul class="list-inline well">
+        <li><span id="parking_color" class="legend-color"></span> - Parking</li>
+        <li><span id="show_car_color" class="legend-color"></span> - Show Car Area</li>
+        <li><span id="car_club_color" class="legend-color"></span> - Car Club Area</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <h4>Looking for something in particular?</h4>
+    <h5>Showcases</h5>
+    <ul class="list-unstyled">
+      <li><a href="#" id="vintage_link">Vintage</a></li><li class="alignright"><a href="#" id="bathrooms_link">Bathrooms</a></li>
+      <li><a href="#" id="antique_link">Antique</a></li><li class="alignright"><a href="#" id="vendors_link">Vendors</a></li>
+      <li><a href="#" id="early_mustang_link">Early Mustang</a></li>
+      <li><a href="#" id="mustang_future_link">Future Mustang</a></li>
+      <li><a href="#" id="preservation_link">Preservation</a></li>
+      <li><a href="#" id="mustang_gen_link">Mustang</a></li>
+      <li><a href="#" id="sports_classics_link">Sports Classics</a></li>
+      <li><a href="#" id="collector_foreign_link">Foreign Collector</a></li>
+      <li><a href="#" id="mini_link">Mini</a></li>
+      <li><a href="#" id="amer_perform_link">American Performance</a></li>
+      <li><a href="#" id="collect_closed_link">Closed Collection</a></li>
+      <li><a href="#" id="collect_open_link">Open Collection</a></li>
+      <li><a href="#" id="future_classics_link">Future Classics</a></li>
+    </ul>
+    <h5>Car Clubs</h5>
+    <ul class="list-unstyled">
+      <li><a href="#" id="bmw_link">BMW</a></li>
+      <li><a href="#" id="miata_link">Miata</a></li>
+      <li><a href="#" id="corvair_mustang_link">Corvair</a></li>
+      <li><a href="#" id="italian_future_link">Italian</a></li>
+      <li><a href="#" id="viper_link">Viper</a></li>
+      <li><a href="#" id="brit_link">British</a></li>
+      <li><a href="#" id="cobra_link">Cobra</a></li>
+      <li><a href="#" id="landrover_link">Landrover</a></li>
+      <li><a href="#" id="jaguar_link">Jaguar</a></li>
+      <li><a href="#" id="corvette_link">Corvette</a></li>
+      <li><a href="#" id="porsche_link">Porsche</a></li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery-2.0.3.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Change Google Maps API key below -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJkw77K08umeOtYm8HnDRiWlyRGuzkJl8&sensor=false">
+</script>
+<script type="text/javascript">
+  var map;
+  var car_club_area;
+  var show_car_circles;
+  var bmw_car_club;
+  var miata_car_club;
+  var corvair_car_club;
+  var italian_car_club;
+  var viper_car_club;
+  var brit_car_club;
+  var cobra_car_club;
+  var landrover_car_club;
+  var jaguar_car_club;
+  var corvette_club;
+  var porsche_club;
+  var show_cars;
+  var show_field;
+  var car_club_area_color = '#99FF33';
+  var show_field_color = '#663300';
+  var all_parking_color = '#0BA9CC';
+
+function hide_cars() {
+    show_field.setMap(map);
+    for (var i=0; i <= show_cars.length - 1; i++) {
+      show_cars[i].setMap(null);
+    }
+  }
+
+  function show_show_cars(){
+    show_field.setMap(null);
+    for (var i=0; i <= show_cars.length - 1; i++) {
+      show_cars[i].setMap(map);
+    }
+  }
+
+  function initialize() {
+    var mapOptions = {
+      center: new google.maps.LatLng( 38.04798015658998, -84.59683381523666),
+      zoom: 16,
+      disableDefaultUI: true,
+      zoomControl: true,
+      mapTypeId: google.maps.MapTypeId.SATELLITE
+    };
+    map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+    //   var kmlLayer = new google.maps.KmlLayer({
+    //     url: 'http://mapsengine.google.com/map/kml?mid=z-KSz345Pf_Y.ki1Dj7vL_Ggo',
+    //     suppressInfoWindows: true,
+    //     map: map
+    //     });
+show_car_circles = {};
+
+show_car_circles['vintage'] = {
+  center: new google.maps.LatLng(38.04802039474226, -84.59692597389221),
+  name: "Vintage"
+};
+show_car_circles['antique'] = {
+  center: new google.maps.LatLng(38.0479024027373, -84.5967449247837),
+  name: "Antique"
+};
+show_car_circles['early_mustang'] = {
+  center: new google.maps.LatLng(38.047848634165646,-84.5971231162548),
+  name: "Early Mustang"
+};
+show_car_circles['mustang_future'] = {
+  center: new google.maps.LatLng(38.047708238264555,-84.5969407260418),
+  name: "Mustang Future"
+};
+show_car_circles['preservation'] = {
+  center: new google.maps.LatLng(38.04764550809407,-84.59734976291656),
+  name: "Preservation"
+};
+show_car_circles['mustang_gen'] = {
+  center: new google.maps.LatLng(38.04754095769048,-84.59710970520973),
+  name: "Mustange Gen"
+};
+show_car_circles['sports_classics'] = {
+  center: new google.maps.LatLng(38.04749913748724,-84.59640562534332),
+  name: "Sports Classics"
+};
+show_car_circles['collector_foreign'] = {
+  center: new google.maps.LatLng(38.04763654663676,-84.5961856842041),
+  name: "Collector Foreign"
+};
+show_car_circles['mini'] = {
+  center: new google.maps.LatLng(38.047779929822156,-84.59595501422882),
+  name: "Mini"
+};
+show_car_circles['amer_perform'] = {
+  center: new google.maps.LatLng(38.04720042105508,-84.59563314914703),
+  name: "American Performance"
+};
+show_car_circles['collect_closed'] = {
+  center: new google.maps.LatLng(38.04754693200327,-84.59549903869629),
+  name: "Collect Closed"
+};
+show_car_circles['collect_open'] = {
+  center: new google.maps.LatLng(38.04711678023568,-84.59532737731934),
+  name: "Collect Open"
+};
+show_car_circles['future_classics'] = {
+  center: new google.maps.LatLng(38.04746926589887,-84.59517180919647),
+  name: "Future Classics"
+};
+
+var car_circle;
+show_cars = [];
+var i = 0;
+
+for (var car in show_car_circles) {
+  var name = show_car_circles[car].name;
+  var showCarOptions = {
+    strokeColor: '#FF0000',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF0000',
+    fillOpacity: 0.35,
+    center: show_car_circles[car].center,
+    radius: 11
+  };
+  // Add the circle for this to the map.
+  car_circle = new google.maps.Circle(showCarOptions);
+  show_cars.push(car_circle);
+  attach_info_window(car_circle, car);
+  i = i + 1;
+}
+
+  function attach_info_window(circle, car){
+    var infowindow = new google.maps.InfoWindow(
+      { content: show_car_circles[car].name,
+        size: new google.maps.Size(50,50)
+      });
+    google.maps.event.addListener(circle, 'click', function() {
+      infowindow.setPosition(show_car_circles[car].center)
+      infowindow.open(map);
+    });
+  }
+
+  var car_club_coord = [
+  new google.maps.LatLng(38.04724224142897, -84.59852457046509),
+  new google.maps.LatLng(38.047397574037056, -84.59839582443237),
+  new google.maps.LatLng(38.04731393344289, -84.59823489189148),
+  new google.maps.LatLng(38.04709288284114, -84.59707617759705),
+  new google.maps.LatLng(38.04726016443903, -84.59697961807251),
+  new google.maps.LatLng(38.047167562173136, -84.5967435836792)
+  ]
+
+  var car_club_path = new google.maps.Polyline({
+    path: car_club_coord,
+    geodesic: true,
+    strokeColor: '#777777',
+    strokeOpacity: 1.0,
+    strokeWeight: 4
+  });
+
+  car_club_path.setMap(map);
+
+  var gen_parking;
+  var vip_parking;
+  var handicap_parking;
+
+  var all_parking;
+
+  var show_field_coord = [
+  new google.maps.LatLng(38.048120, -84.596953),
+  new google.maps.LatLng(38.047905, -84.597318),
+  new google.maps.LatLng(38.047589, -84.597693),
+  new google.maps.LatLng(38.046902, -84.595215),
+  new google.maps.LatLng(38.047314, -84.594609),
+  new google.maps.LatLng(38.047899, -84.595698),
+  new google.maps.LatLng(38.047852, -84.596255),
+  new google.maps.LatLng(38.047947, -84.596583),
+  new google.maps.LatLng(38.048162, -84.596883),
+  new google.maps.LatLng(38.048120, -84.596953)
+  ];
+
+  var all_parking_coord = [
+  new google.maps.LatLng(38.048716, -84.599404),
+  new google.maps.LatLng(38.048590, -84.597838),
+  new google.maps.LatLng(38.048976, -84.597709),
+  new google.maps.LatLng(38.049291, -84.597602),
+  new google.maps.LatLng(38.048556, -84.594641),
+  new google.maps.LatLng(38.049223, -84.594415),
+  new google.maps.LatLng(38.049764, -84.596647),
+  new google.maps.LatLng(38.049654, -84.597087),
+  new google.maps.LatLng(38.049443, -84.597173),
+  new google.maps.LatLng(38.049848, -84.599029),
+  new google.maps.LatLng(38.048716, -84.599404)
+  ];
+
+  var vip_parking_coord = [
+  new google.maps.LatLng(38.049572, -84.598181),
+  new google.maps.LatLng(38.049017, -84.598315),
+  new google.maps.LatLng(38.048915, -84.597800),
+  new google.maps.LatLng(38.049459, -84.597623),
+  new google.maps.LatLng(38.049477, -84.597720),
+  new google.maps.LatLng(38.049572, -84.598181)
+  ];
+
+  var gen_parking_coord = [
+  new google.maps.LatLng(38.049757, -84.598986),
+  new google.maps.LatLng(38.048778, -84.599313),
+  new google.maps.LatLng(38.048700, -84.598460),
+  new google.maps.LatLng(38.049578, -84.598224),
+  new google.maps.LatLng(38.049757, -84.598986)
+  ];
+
+  var handicap_parking_coord = [
+  new google.maps.LatLng(38.04969167879324,-84.59658801555634),
+  new google.maps.LatLng(38.04932725549697, -84.59672212600708),
+  new google.maps.LatLng(38.049231668758274,-84.59639489650726),
+  new google.maps.LatLng(38.04960804082008,-84.59625542163849)
+  ];
+
+  var car_club_coord = [
+  new google.maps.LatLng(38.04758875217923,-84.59769308567047),
+  new google.maps.LatLng(38.04704508802866, -84.5979505777359),
+  new google.maps.LatLng(38.04598164538086, -84.59456026554108),
+  new google.maps.LatLng(38.04705106238194, -84.5941150188446),
+  new google.maps.LatLng(38.047278087444695, -84.59454417228699),
+  new google.maps.LatLng(38.04683598535729, -84.59520936012268),
+  new google.maps.LatLng(38.04758875217923, -84.59769308567047)
+  ];
+
+  show_field = new google.maps.Polygon({
+    paths: show_field_coord,
+    strokeColor: show_field_color,
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: show_field_color,
+    fillOpacity: 0.5
+  });
+
+  all_parking = new google.maps.Polygon({
+    paths: all_parking_coord,
+    strokeColor: all_parking_color,
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: all_parking_color,
+    fillOpacity: 0.15
+  });
+
+  gen_parking = new google.maps.Polygon({
+    paths: gen_parking_coord,
+    strokeColor: '#00CCCC',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#00CCCC',
+    fillOpacity: 0.15
+  });
+
+  vip_parking = new google.maps.Polygon({
+    paths: vip_parking_coord,
+    strokeColor: '#6600CC',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#6600CC',
+    fillOpacity: 0.35
+  });
+
+  handicap_parking = new google.maps.Polygon({
+    paths: handicap_parking_coord,
+    strokeColor: '#2A82C1',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#2A82C1',
+    fillOpacity: 0.35
+  });
+
+  car_club_area = new google.maps.Polygon({
+    paths: car_club_coord,
+    strokeColor: car_club_area_color,
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: car_club_area_color,
+    fillOpacity: 0.35
+  });
+
+  car_club_area.setMap(map);
+  all_parking.setMap(map);
+  show_field.setMap(map);
+
+  //adding the bathrooms
+  var bathrooms;
+  var bathroom_coord = [
+  new google.maps.LatLng(38.048598, -84.596143),
+  new google.maps.LatLng(38.048480, -84.596186),
+  new google.maps.LatLng(38.048429, -84.596068),
+  new google.maps.LatLng(38.048556, -84.596003),
+  new google.maps.LatLng(38.048598, -84.596143)
+  ];
+
+  bathrooms = new google.maps.Polygon({
+    paths: bathroom_coord,
+    strokeColor: '#FFFF00',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FFFF00',
+    fillOpacity: 0.35
+  });
+
+  bathrooms.setMap(map);
+
+   // adding food and vendors
+   var food;
+   var vendors;
+
+   var food_coord = [
+   new google.maps.LatLng(38.048978, -84.596561),
+   new google.maps.LatLng(38.048775, -84.596647),
+   new google.maps.LatLng(38.048742, -84.596432),
+   new google.maps.LatLng(38.048928, -84.596336),
+   new google.maps.LatLng(38.048978, -84.596561)
+   ];
+
+   var vendor_coord = [
+   new google.maps.LatLng(38.048691, -84.597259),
+   new google.maps.LatLng(38.048573, -84.597312),
+   new google.maps.LatLng(38.048488, -84.597033),
+   new google.maps.LatLng(38.048615, -84.596969),
+   new google.maps.LatLng(38.048691, -84.597259)
+   ];
+
+   food = new google.maps.Polygon({
+    paths: food_coord,
+    strokeColor: '#FF00FF',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF00FF',
+    fillOpacity: 0.35
+  });
+
+   vendors = new google.maps.Polygon({
+    paths: vendor_coord,
+    strokeColor: '#FF00FF',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF00FF',
+    fillOpacity: 0.35
+  });
+
+   food.setMap(map);
+   vendors.setMap(map);
+
+   var viper_coord = [
+   new google.maps.LatLng(38.047188, -84.594646),
+   new google.maps.LatLng(38.046938, -84.594179),
+   new google.maps.LatLng(38.047051, -84.594115),
+   new google.maps.LatLng(38.047278, -84.594544),
+   new google.maps.LatLng(38.047188, -84.594646)
+   ];
+
+   var miata_coord = [
+   new google.maps.LatLng(38.047188, -84.594646),
+   new google.maps.LatLng(38.047147, -84.594710),
+   new google.maps.LatLng(38.046770, -84.594249),
+   new google.maps.LatLng(38.046938, -84.594179),
+   new google.maps.LatLng(38.047188, -84.594646)
+   ];
+
+   var corvair_coord = [
+   new google.maps.LatLng(38.047075, -84.594818),
+   new google.maps.LatLng(38.046555, -84.594335),
+   new google.maps.LatLng(38.046770, -84.594249),
+   new google.maps.LatLng(38.047147, -84.594710),
+   new google.maps.LatLng(38.047075, -84.594818)
+   ];
+
+   var italian_coord = [
+   new google.maps.LatLng(38.047075, -84.594818),
+   new google.maps.LatLng(38.046991, -84.594936),
+   new google.maps.LatLng(38.046245, -84.594474),
+   new google.maps.LatLng(38.046555, -84.594335),
+   new google.maps.LatLng(38.047075, -84.594818)
+   ];
+
+   var bmw_coord = [
+   new google.maps.LatLng(38.046991, -84.594936),
+   new google.maps.LatLng(38.046878, -84.595118),
+   new google.maps.LatLng(38.046209, -84.594753),
+   new google.maps.LatLng(38.046245, -84.594474),
+   new google.maps.LatLng(38.046991, -84.594936)
+   ];
+
+   var brit_coord = [
+   new google.maps.LatLng(38.046878, -84.595118),
+   new google.maps.LatLng(38.046836, -84.595209),
+   new google.maps.LatLng(38.046207, -84.595027),
+   new google.maps.LatLng(38.046209, -84.594753),
+   new google.maps.LatLng(38.046878, -84.595118)
+   ];
+
+   var cobra_coord = [
+   new google.maps.LatLng(38.046836, -84.595209),
+   new google.maps.LatLng(38.046900, -84.595445),
+   new google.maps.LatLng(38.046334, -84.595488),
+   new google.maps.LatLng(38.046207, -84.595027),
+   new google.maps.LatLng(38.046836, -84.595209)
+   ];
+
+   var landrover_coord = [
+   new google.maps.LatLng(38.046900, -84.595445),
+   new google.maps.LatLng(38.046976, -84.595724),
+   new google.maps.LatLng(38.046486, -84.595896),
+   new google.maps.LatLng(38.046334, -84.595488),
+   new google.maps.LatLng(38.046900, -84.595445)
+   ];
+
+   var jaguar_coord = [
+   new google.maps.LatLng(38.046976, -84.595724),
+   new google.maps.LatLng(38.047052, -84.596003),
+   new google.maps.LatLng(38.046562, -84.596207),
+   new google.maps.LatLng(38.046486, -84.595896),
+   new google.maps.LatLng(38.046976, -84.595724)
+   ];
+
+   var porsche_coord = [
+   new google.maps.LatLng(38.047229, -84.596583),
+   new google.maps.LatLng(38.046748, -84.596851),
+   new google.maps.LatLng(38.046562, -84.596207),
+   new google.maps.LatLng(38.047052, -84.596003),
+   new google.maps.LatLng(38.047229, -84.596583)
+   ];
+
+   var corvette_coord = [
+   new google.maps.LatLng(38.047194, -84.596744),
+   new google.maps.LatLng(38.047407, -84.597301),
+   new google.maps.LatLng(38.046967, -84.597473),
+   new google.maps.LatLng(38.046807, -84.597033),
+   new google.maps.LatLng(38.047194, -84.596744)
+   ];
+
+   bmw_car_club = new google.maps.Polygon({
+    paths: bmw_coord,
+    strokeColor: '#FF6600',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF6600',
+    fillOpacity: 0.35
+  });
+
+   miata_car_club = new google.maps.Polygon({
+    paths: miata_coord,
+    strokeColor: '#FF6600',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF6600',
+    fillOpacity: 0.35
+  });
+
+   corvair_car_club = new google.maps.Polygon({
+    paths: corvair_coord,
+    strokeColor: '#FF6600',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF6600',
+    fillOpacity: 0.35
+  });
+
+   italian_car_club = new google.maps.Polygon({
+    paths: italian_coord,
+    strokeColor: '#FF6600',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF6600',
+    fillOpacity: 0.35
+  });
+
+   viper_car_club = new google.maps.Polygon({
+    paths: viper_coord,
+    strokeColor: '#FF6600',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF6600',
+    fillOpacity: 0.35
+  });
+
+   brit_car_club = new google.maps.Polygon({
+    paths: brit_coord,
+    strokeColor: '#FF6600',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF6600',
+    fillOpacity: 0.35
+  });
+
+   cobra_car_club = new google.maps.Polygon({
+    paths: cobra_coord,
+    strokeColor: '#FF6600',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF6600',
+    fillOpacity: 0.35
+  });
+
+   landrover_car_club = new google.maps.Polygon({
+    paths: landrover_coord,
+    strokeColor: '#FF6600',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF6600',
+    fillOpacity: 0.35
+  });
+
+   jaguar_car_club = new google.maps.Polygon({
+    paths: jaguar_coord,
+    strokeColor: '#FF6600',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF6600',
+    fillOpacity: 0.35
+  });
+
+   porsche_car_club = new google.maps.Polygon({
+    paths: porsche_coord,
+    strokeColor: '#FF6600',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF6600',
+    fillOpacity: 0.35
+  });
+
+   corvette_car_club = new google.maps.Polygon({
+    paths: corvette_coord,
+    strokeColor: '#FF6600',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF6600',
+    fillOpacity: 0.35
+  });
+
+   ///////////////////////////////////////////////////
+
+   //map reset function
+   function map_reset() {
+      //hide individual polygons
+      bmw_car_club.setMap(null);
+      miata_car_club.setMap(null);
+      corvair_car_club.setMap(null);
+      italian_car_club.setMap(null);
+      viper_car_club.setMap(null);
+      brit_car_club.setMap(null);
+      cobra_car_club.setMap(null);
+      landrover_car_club.setMap(null);
+      jaguar_car_club.setMap(null);
+      corvette_car_club.setMap(null);
+      porsche_car_club.setMap(null);
+      gen_parking.setMap(null);
+      vip_parking.setMap(null);
+      handicap_parking.setMap(null);
+      hide_cars();
+
+      //now show large polygons
+      car_club_area.setMap(map);
+      all_parking.setMap(map);
+      bathrooms.setMap(map);
+      vendors.setMap(map);
+      food.setMap(map);
+      show_field.setMap(map);
+    }
+
+   /////////////////////////////////////////////////////////////////////////////////////////////////
+   //onZoom Listener
+   google.maps.event.addListener(map, 'zoom_changed', function() {
+     if(map.getZoom() < 17)
+     {
+      map_reset();
+    }
+  });
+
+
+   /////////////////////////////////////////////////////////////////////////////////////////////////
+   //Onclick Listeners
+
+    //Bathroom Polygon Listener
+    google.maps.event.addListener(bathrooms, 'click', function() {
+    bathrooms.setMap(null); // Hide the big polygon
+    var center = new google.maps.LatLng(38.04851723912264, -84.59609386082468);
+    // Show all the individual polygons
+    bathrooms.setMap(map);
+    var infowindow = new google.maps.InfoWindow(
+      { content: "Bathrooms Located Inside Keene Barn",
+      size: new google.maps.Size(50,50),
+      position: center,
+      map: map
+    });
+    // Set map zoom and pan to location
+    map.setZoom(19);
+    map.panTo(center);
+  });
+
+    // Parking Polygon Listener
+    google.maps.event.addListener(all_parking, 'click', function() {
+    all_parking.setMap(null); // Hide the big parking polygon
+    // Show all the individual parking area polygons
+    gen_parking.setMap(map);
+    vip_parking.setMap(map);
+    handicap_parking.setMap(map);
+    // Set map zoom and pan to location
+    map.setZoom(18);
+    map.panTo( new google.maps.LatLng(38.04918643786036, -84.59779500961308));
+  });
+
+    google.maps.event.addListener(handicap_parking, 'click', function() {
+      var center = new google.maps.LatLng(38.049485146189056, -84.59646999835972);
+      var infowindow = new google.maps.InfoWindow(
+        { content: "Handicap Parking",
+        size: new google.maps.Size(50,50),
+        position: center,
+        map: map
+      });
+      map.setZoom(19);
+      map.panTo(center);
+    });
+
+    google.maps.event.addListener(vip_parking, 'click', function() {
+      var center = new google.maps.LatLng(38.049276050487094, -84.59798812866215);
+      var infowindow = new google.maps.InfoWindow(
+        { content: "VIP Parking",
+        size: new google.maps.Size(50,50),
+        position: center,
+        map: map
+      });
+      map.setZoom(19);
+      map.panTo(center);
+    });
+
+    google.maps.event.addListener(gen_parking, 'click', function() {
+      var center = new google.maps.LatLng(38.04920436039461, -84.59871232509617);
+      var infowindow = new google.maps.InfoWindow(
+        { content: "General Admission Parking",
+        size: new google.maps.Size(50,50),
+        position: center,
+        map: map
+      });
+      map.setZoom(18);
+      map.panTo(center);
+    });
+
+  // Show Field Polygon Listener
+  google.maps.event.addListener(show_field, 'click', function() {
+    show_field.setMap(null); // Hide the big car club polygon
+    // Show all the individual car club polygons
+    show_show_cars();
+    // Set map zoom and pan to location
+    map.setZoom(18);
+    map.panTo( new google.maps.LatLng(38.04769402134408, -84.59618203844605));
+  });
+
+  // Car Club Polygon Listener
+  google.maps.event.addListener(car_club_area, 'click', function() {
+    car_club_area.setMap(null); // Hide the big car club polygon
+    // Show all the individual car club polygons
+    bmw_car_club.setMap(map);
+    miata_car_club.setMap(map);
+    corvair_car_club.setMap(map);
+    italian_car_club.setMap(map);
+    viper_car_club.setMap(map);
+    brit_car_club.setMap(map);
+    cobra_car_club.setMap(map);
+    landrover_car_club.setMap(map);
+    jaguar_car_club.setMap(map);
+    corvette_car_club.setMap(map);
+    porsche_car_club.setMap(map);
+    // Set map zoom and pan to location
+    map.setZoom(17);
+    map.panTo( new google.maps.LatLng(38.046814198575966, -84.59580384697495));
+  });
+
+  google.maps.event.addListener(viper_car_club, 'click', function() {
+    var center = new google.maps.LatLng(38.04716265840235, -84.59440105166016);
+    var infowindow = new google.maps.InfoWindow(
+      { content: "Viper Club",
+      size: new google.maps.Size(50,50),
+      position: center,
+      map: map
+    });
+    map.setZoom(20);
+    map.panTo(center);
+  });
+
+  google.maps.event.addListener(miata_car_club, 'click', function() {
+    var center = new google.maps.LatLng(38.04697297273775, -84.59443055595932);
+    var infowindow = new google.maps.InfoWindow(
+      { content: "Miata Club",
+      size: new google.maps.Size(50,50),
+      position: center,
+      map: map
+    });
+    map.setZoom(20);
+    map.panTo(center);
+  });
+
+  google.maps.event.addListener(corvair_car_club, 'click', function() {
+    var center = new google.maps.LatLng(38.04694459452488, -84.59451906885681);
+    var infowindow = new google.maps.InfoWindow(
+      { content: "Corvair Club",
+      size: new google.maps.Size(50,50),
+      position: center,
+      map: map
+    });
+    map.setZoom(19);
+    map.panTo(center);
+  });
+
+  google.maps.event.addListener(italian_car_club, 'click', function() {
+    var center = new google.maps.LatLng(38.04664886302372, -84.59463574494896);
+    var infowindow = new google.maps.InfoWindow(
+      { content: "Italian Club",
+      size: new google.maps.Size(50,50),
+      position: center,
+      map: map
+    });
+    map.setZoom(19);
+    map.panTo(center);
+  });
+
+  google.maps.event.addListener(bmw_car_club, 'click', function() {
+    var center = new google.maps.LatLng(38.04657717035822, -84.5948060652214);
+    var infowindow = new google.maps.InfoWindow(
+      { content: "BMW Club",
+      size: new google.maps.Size(50,50),
+      position: center,
+      map: map
+    });
+    map.setZoom(19);
+    map.panTo(center);
+  });
+
+  google.maps.event.addListener(brit_car_club, 'click', function() {
+    var center = new google.maps.LatLng(38.0465353496049, -84.59501795973358);
+    var infowindow = new google.maps.InfoWindow(
+      { content: "British Club",
+      size: new google.maps.Size(50,50),
+      position: center,
+      map: map
+    });
+    map.setZoom(19);
+    map.panTo(center);
+  });
+
+  google.maps.event.addListener(cobra_car_club, 'click', function() {
+    var center = new google.maps.LatLng(38.0465293752099, -84.59526740517197);
+    var infowindow = new google.maps.InfoWindow(
+      { content: "Cobra Club",
+      size: new google.maps.Size(50,50),
+      position: center,
+      map: map
+    });
+    map.setZoom(19);
+    map.panTo(center);
+  });
+
+  google.maps.event.addListener(landrover_car_club, 'click', function() {
+    var center = new google.maps.LatLng(38.04668321573434, -84.59561072792587);
+    var infowindow = new google.maps.InfoWindow(
+      { content: "Land Rover Club",
+      size: new google.maps.Size(50,50),
+      position: center,
+      map: map
+    });
+    map.setZoom(19);
+    map.panTo(center);
+  });
+
+  google.maps.event.addListener(jaguar_car_club, 'click', function() {
+    var center = new google.maps.LatLng(38.0467773122076, -84.59598087276993);
+    var infowindow = new google.maps.InfoWindow(
+      { content: "Jaguar Club",
+      size: new google.maps.Size(50,50),
+      position: center,
+      map: map
+    });
+    map.setZoom(19);
+    map.panTo(center);
+  });
+
+  google.maps.event.addListener(porsche_car_club, 'click', function() {
+    var center = new google.maps.LatLng(38.04691472271498, -84.59638856854019);
+    var infowindow = new google.maps.InfoWindow(
+      { content: "Porsche Club",
+      size: new google.maps.Size(50,50),
+      position: center,
+      map: map
+    });
+    map.setZoom(19);
+    map.panTo(center);
+  });
+
+  google.maps.event.addListener(corvette_car_club, 'click', function() {
+    var center = new google.maps.LatLng(38.047084991894344, -84.59717177357254);
+    var infowindow = new google.maps.InfoWindow(
+      { content: "Corvette Club",
+      size: new google.maps.Size(50,50),
+      position: center,
+      map: map
+    });
+    map.setZoom(19);
+    map.panTo(center);
+  });
+
+  //Food and Vendor Polygon Listener
+  google.maps.event.addListener(vendors, 'click', function() {
+    //food.setMap(null); // Hide the big polygon
+    //vendor.setMap(null);
+    var center = new google.maps.LatLng(38.0485915501854, -84.59717311467705);
+    // Show all the individual polygons
+    //food.setMap(map);
+    //vendor.setMap(map);
+    var infowindow = new google.maps.InfoWindow(
+      { content: "Vendors",
+      size: new google.maps.Size(50,50),
+      position: center,
+      map: map
+    });
+    // Set map zoom and pan to location
+    map.setZoom(19);
+    map.panTo(center);
+  });
+
+  google.maps.event.addListener(food, 'click', function() {
+    //food.setMap(null); // Hide the big polygon
+    //vendor.setMap(null);
+    var center = new google.maps.LatLng(38.04892909325019, -84.5965508421856);
+    // Show all the individual polygons
+    //food.setMap(map);
+    //vendor.setMap(map);
+    var infowindow = new google.maps.InfoWindow(
+      { content: "Food",
+      size: new google.maps.Size(50,50),
+      position: center,
+      map: map
+    });
+    // Set map zoom and pan to location
+    map.setZoom(19);
+    map.panTo(center);
+  });
+
+  if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = new google.maps.LatLng(position.coords.latitude,
+       position.coords.longitude);
+
+      // Check if within bounds
+      if (pos.lat() < 38.052606055057026 & pos.lat() > 38.042686996769866 & pos.lng() > -84.6028751134872 & pos.lng() < -84.58832681179042){
+        marker = new google.maps.Marker({
+          map:map,
+          animation: google.maps.Animation.DROP,
+          position: pos
+        });
+        var infowindow = new google.maps.InfoWindow(
+          { content: "You are here",
+          size: new google.maps.Size(50,50),
+          position: pos,
+          map: map
+        });
+      }
+
+      map.panTo(new google.maps.LatLng( 38.04798015658998, -84.59683381523666));
+      map.setZoom(16);
+    }, function() {
+      handleNoGeolocation(true);
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleNoGeolocation(false);
+  }
+
+  function handleNoGeolocation(errorFlag) {
+    if (errorFlag) {
+      var content = 'Error: The Geolocation service failed.';
+    } else {
+      var content = 'Error: Your browser doesn\'t support geolocation.';
+    }
+  };
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+      //Page Links   onClick Listeners
+
+      // var infowindow = new google.maps.InfoWindow(options);
+      // map.setCenter(options.position);
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    $('#vintage_link').click(function(){
+      show_show_cars();
+      map.setZoom(19);
+      map.panTo(new google.maps.LatLng(38.04802039474226, -84.59692597389221));
+    })
+
+    $('#antique_link').click(function(){
+      show_show_cars();
+      map.setZoom(19);
+      map.panTo(new google.maps.LatLng(38.0479024027373, -84.5967449247837));
+    })
+
+    $('#early_mustang_link').click(function(){
+      show_show_cars();
+      map.setZoom(19);
+      map.panTo(new google.maps.LatLng(38.047848634165646,-84.5971231162548));
+    })
+
+    $('#mustang_future_link').click(function(){
+      show_show_cars();
+      map.setZoom(19);
+      map.panTo(new google.maps.LatLng(38.047708238264555, -84.5969407260418));
+    })
+
+    $('#preservation_link').click(function(){
+      show_show_cars();
+      map.setZoom(19);
+      map.panTo(new google.maps.LatLng(38.04764550809407, -84.59734976291656));
+    })
+
+    $('#mustang_gen_link').click(function(){
+      show_show_cars();
+      map.setZoom(19);
+      map.panTo(new google.maps.LatLng(38.04754095769048, -84.59710970520973));
+    })
+
+    $('#sports_classics_link').click(function(){
+      show_show_cars();
+      map.setZoom(19);
+      map.panTo(new google.maps.LatLng(38.04749913748724, -84.59640562534332));
+    })
+
+    $('#collector_foreign_link').click(function(){
+      show_show_cars();
+      map.setZoom(19);
+      map.panTo(new google.maps.LatLng(38.04763654663676, -84.5961856842041));
+    })
+
+    $('#mini_link').click(function(){
+      show_show_cars();
+      map.setZoom(19);
+      map.panTo(new google.maps.LatLng(38.047779929822156, -84.59595501422882));
+    })
+
+    $('#amer_perform_link').click(function(){
+      show_show_cars();
+      map.setZoom(19);
+      map.panTo(new google.maps.LatLng(38.04720042105508, -84.59563314914703));
+    })
+
+    $('#collect_closed_link').click(function(){
+      show_show_cars();
+      map.setZoom(19);
+      map.panTo(new google.maps.LatLng(38.04754693200327, -84.59549903869629));
+    })
+
+    $('#collect_open_link').click(function(){
+      show_show_cars();
+      map.setZoom(19);
+      map.panTo(new google.maps.LatLng(38.04711678023568, -84.59532737731934));
+    })
+
+    $('#future_classics_link').click(function(){
+      show_show_cars();
+      map.setZoom(19);
+      map.panTo(new google.maps.LatLng(38.04746926589887, -84.59517180919647));
+    })
+
+    $('#car_club_link').click(function(){
+      map.setZoom(16);
+      map.panTo(new google.maps.LatLng(38.046234, -84.594770));
+    })
+
+    $('#general_parking_link').click(function(){
+      map.setZoom(15);
+      map.panTo(new google.maps.LatLng(38.04893, -84.59778));
+    })
+
+    $('#bmw_link').click(function(){
+      show_car_clubs();
+      map.setZoom(18);
+      map.panTo(new google.maps.LatLng(38.04657717035822, -84.5948060652214));
+    })
+
+    $('#miata_link').click(function(){
+      show_car_clubs();
+      map.setZoom(18);
+      map.panTo(new google.maps.LatLng(38.04697297273775, -84.59443055595932));
+    })
+
+    $('#corvair_link').click(function(){
+      show_car_clubs();
+      map.setZoom(18);
+      map.panTo(new google.maps.LatLng(38.04694459452488, -84.59451906885681));
+    })
+
+    $('#italian_link').click(function(){
+      show_car_clubs();
+      map.setZoom(18);
+      map.panTo(new google.maps.LatLng(38.04664886302372, -84.59463574494896));
+    })
+
+    $('#viper_link').click(function(){
+      show_car_clubs();
+      map.setZoom(18);
+      map.panTo(new google.maps.LatLng(38.04716265840235, -84.59440105166016));
+    })
+
+    $('#brit_link').click(function(){
+      show_car_clubs();
+      map.setZoom(18);
+      map.panTo(new google.maps.LatLng(38.0465353496049, -84.59501795973358));
+    })
+
+    $('#cobra_link').click(function(){
+      show_car_clubs();
+      map.setZoom(18);
+      map.panTo(new google.maps.LatLng(38.0465293752099, -84.59526740517197));
+    })
+
+    $('#landrover_link').click(function(){
+      show_car_clubs();
+      map.setZoom(18);
+      map.panTo(new google.maps.LatLng(38.04668321573434, -84.59561072792587));
+    })
+
+    $('#jaguar_link').click(function(){
+      show_car_clubs();
+      map.setZoom(18);
+      map.panTo(new google.maps.LatLng(38.0467773122076, -84.59598087276993));
+    })
+
+    $('#porsche_link').click(function(){
+      show_car_clubs();
+      map.setZoom(18);
+      map.panTo(new google.maps.LatLng(38.04691472271498, -84.59638856854019));
+    })
+
+    $('#corvette_link').click(function(){
+      show_car_clubs();
+      map.setZoom(18);
+      map.panTo(new google.maps.LatLng(38.047084991894344, -84.59717177357254));
+    })
+
+    $('#bathrooms_link').click(function(){
+      var center = new google.maps.LatLng(38.04851723912264, -84.59609386082468);
+      map.setZoom(18);
+      map.panTo(center);
+      var infowindow = new google.maps.InfoWindow(
+      { content: "Bathrooms Located Inside Keene Barn",
+      size: new google.maps.Size(50,50),
+      position: center,
+      map: map
+      });
+      
+    })
+
+    $('#vendors_link').click(function(){
+      show_car_clubs();
+      map.setZoom(19);
+      map.panTo(new google.maps.LatLng(38.04873301494663, -84.59699742998657));
+      var infowindow = new google.maps.InfoWindow(
+      { content: "Food",
+      size: new google.maps.Size(50,50),
+      position: (new google.maps.LatLng(38.04892909325019, -84.5965508421856)),
+      map: map
+      });
+      var infowindow2 = new google.maps.InfoWindow(
+      { content: "Vendors",
+      size: new google.maps.Size(50,50),
+      position: (new google.maps.LatLng(38.0485915501854, -84.59717311467705)),
+      map: map
+      });
+    })
+
+    function show_car_clubs(){
+      car_club_area.setMap(null);
+      bmw_car_club.setMap(map);
+      miata_car_club.setMap(map);
+      corvair_car_club.setMap(map);
+      italian_car_club.setMap(map);
+      viper_car_club.setMap(map);
+      brit_car_club.setMap(map);
+      cobra_car_club.setMap(map);
+      landrover_car_club.setMap(map);
+      jaguar_car_club.setMap(map);
+      corvette_car_club.setMap(map);
+      porsche_car_club.setMap(map);
+    };
+
+
+</script>

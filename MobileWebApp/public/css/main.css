@@ -1,0 +1,40 @@
+/* Custom Styles */
+
+.btn-success{
+	color: #FFF;
+	background-color: #183d36; /* Keeneland Green */
+	border: 2px solid #AA9B70; /* Keeneland Gold(ish) */
+	margin-bottom: 10px;
+}
+
+a.btn-success{
+  color: #FFF;
+}
+
+.btn-success:focus{
+  box-shadow: none;
+}
+
+/* Legend Colors */
+
+#parking_color{
+  background-color: #0BA9CC;
+}
+
+#car_club_color{
+  background-color: #99FF33;
+}
+
+#show_car_color{
+  background-color: #663300;
+}
+
+.legend-color{
+  width: 5px;
+  padding: 0 5px;
+  margin: 0 5px;
+}
+
+.alignright {
+  float: right;
+}
