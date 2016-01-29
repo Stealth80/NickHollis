@@ -1,0 +1,15 @@
+#ifndef FILLER_IMAGE
+#define FILLER_IMAGE
+
+#include "globals.h"
+#include "image.h"
+
+class fillerImage : public image {
+public:
+    // add your functions here
+
+private:
+    // add your private variables here
+};
+
+#endif

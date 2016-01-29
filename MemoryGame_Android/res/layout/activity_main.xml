@@ -1,0 +1,231 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:smallScreens="true"
+	android:normalScreens="true"
+	android:largeScreens= "true"
+	android:anyDensity="true"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:gravity="top"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="1dp" >
+    
+ 			<Chronometer android:id="@+id/chronometer"
+        	
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:layout_weight="0"
+      		  	android:paddingBottom="1dip"
+        		android:paddingTop="1dip" />
+ 			
+    </LinearLayout>
+			       
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+
+
+        <ImageButton
+            android:id="@+id/card1"
+            android:layout_width="63dp"
+        	android:layout_height="88dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/starwars" />
+        
+        <ImageButton
+            android:id="@+id/card2"
+            android:layout_width="63dp"
+        	android:layout_height="88dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/starwars" />
+        
+        <ImageButton
+            android:id="@+id/card3"
+           android:layout_width="63dp"
+        	android:layout_height="88dp"
+             android:scaleType="fitXY"
+            android:src="@drawable/starwars" />
+        
+        <ImageButton
+            android:id="@+id/card4"
+            android:layout_width="63dp"
+        	android:layout_height="88dp"
+             android:scaleType="fitXY"
+            android:src="@drawable/starwars" />
+        
+        <ImageButton
+            android:id="@+id/card5"
+            android:layout_width="63dp"
+        	android:layout_height="88dp"
+             android:scaleType="fitXY"
+            android:src="@drawable/starwars" />
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+        
+        <ImageButton
+            android:id="@+id/card6"
+            android:layout_width="63dp"
+        	android:layout_height="88dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/starwars" />
+        
+        <ImageButton
+            android:id="@+id/card7"
+            android:layout_width="63dp"
+        	android:layout_height="88dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/starwars" />
+        
+        <ImageButton
+            android:id="@+id/card8"
+            android:layout_width="63dp"
+        	android:layout_height="88dp"
+             android:scaleType="fitXY"
+            android:src="@drawable/starwars" />
+        
+        <ImageButton
+            android:id="@+id/card9"
+            android:layout_width="63dp"
+        	android:layout_height="88dp"
+             android:scaleType="fitXY"
+            android:src="@drawable/starwars" />
+        
+        <ImageButton
+            android:id="@+id/card10"
+            android:layout_width="63dp"
+        	android:layout_height="88dp"
+             android:scaleType="fitXY"
+            android:src="@drawable/starwars" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+        
+        <ImageButton
+            android:id="@+id/card11"
+            android:layout_width="63dp"
+        	android:layout_height="88dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/starwars" />
+        
+        <ImageButton
+            android:id="@+id/card12"
+            android:layout_width="63dp"
+        	android:layout_height="88dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/starwars" />
+        
+        <ImageButton
+            android:id="@+id/card13"
+            android:layout_width="63dp"
+        	android:layout_height="88dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/starwars" />
+        
+        <ImageButton
+            android:id="@+id/card14"
+            android:layout_width="63dp"
+        	android:layout_height="88dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/starwars" />
+        
+        <ImageButton
+            android:id="@+id/card15"
+            android:layout_width="63dp"
+        	android:layout_height="88dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/starwars" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+        
+        <ImageButton
+            android:id="@+id/card16"
+            android:layout_width="63dp"
+        	android:layout_height="88dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/starwars" />
+        
+        <ImageButton
+            android:id="@+id/card17"
+            android:layout_width="63dp"
+        	android:layout_height="88dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/starwars" />
+        
+        <ImageButton
+            android:id="@+id/card18"
+            android:layout_width="63dp"
+        	android:layout_height="88dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/starwars" />
+        
+        <ImageButton
+            android:id="@+id/card19"
+            android:layout_width="63dp"
+        	android:layout_height="88dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/starwars" />
+        
+        <ImageButton
+            android:id="@+id/card20"
+            android:layout_width="63dp"
+        	android:layout_height="88dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/starwars" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+        
+        	<Button
+        	    android:id="@+id/reset_button"
+        	    android:layout_width="135dp"
+        	    android:layout_height="50dp"
+        	    android:text="Reset" >
+        	</Button>   
+        	    
+        	<Button
+        	    android:id="@+id/start_button"
+        	    android:layout_width="135dp"
+        	    android:layout_height="50dp"
+        	    android:text="Start" >
+        	</Button>       
+        	
+    </LinearLayout>
+
+</LinearLayout>

@@ -2,9 +2,7 @@
 '  This is a code snippet to demonstrate Visual Basic executing a SQL 
 '  query inside a form and displaying to the user.
 '
-'  ###  Names of servers, databases, connection strings, variables, 
-'  		tables, columns, etc. have been changed but the concepts are 
-'		the same.  ###
+'  
 Private Sub Form_Load(ByVal sender As object, ByVal args As EventArgs) Handles Form.Load        
 		screenSetup
         LoadQuery()
@@ -19,7 +17,7 @@ Private Sub Form_Load(ByVal sender As object, ByVal args As EventArgs) Handles F
         Dim command As SqlCommand = New SqlCommand()
         
         Try
-           command.Connection = connection 'connet to database
+           command.Connection = connection 'connect to database
            command.CommandTimeout = 180
            command.CommandText = "select a.Column1, a.Column2, a.Column3, b.ColumnA as 'A', b.ColumnB as 'B', a.Column4, a.Column5, c.FirstColumn as 'First' from Table1 a inner join Table2 b on a.Column1=b.ColumnA inner join Table3 c on a.Column3=c.SecondColumn where a.Column6=0 and c.ThirdColumn in ('Code1','Code2','Code3','Code4') and b.ColumnB>0 and a.Column4='Parameter' order by a.Column1"
            'Load query into command text                     
